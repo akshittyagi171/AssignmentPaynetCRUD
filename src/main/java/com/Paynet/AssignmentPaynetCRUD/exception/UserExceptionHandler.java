@@ -13,7 +13,7 @@ public class UserExceptionHandler extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
-	@ExceptionHandler(UserExceptionHandler.class)
+	@ExceptionHandler(UserException.class)
 	public ResponseEntity<UserError> handleValidationException(UserException ex) {
 		UserError response = UserError.builder().errorCode(ex.getErrorCode())
 				.errorMessage(ex.getErrorMessage()).build();
