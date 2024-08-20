@@ -2,13 +2,13 @@ package com.Paynet.AssignmentPaynetCRUD.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.Paynet.AssignmentPaynetCRUD.constants.ErrorCodeEnum;
 import com.Paynet.AssignmentPaynetCRUD.pojo.UserError;
 
-
-
+@ControllerAdvice
 public class UserExceptionHandler extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
