@@ -20,6 +20,15 @@ public class User {
     private String address;
     private String emailAddress;
 
+    private String username;
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    public enum Role {
+        USER, ADMIN
+    }
     @Enumerated(EnumType.STRING)
     private Status status;
 

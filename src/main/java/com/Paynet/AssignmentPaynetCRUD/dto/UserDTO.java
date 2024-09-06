@@ -11,6 +11,9 @@ public class UserDTO {
     private Integer age;
     private String address;
     private String emailAddress;
+    private String username;
+    private String password;
+    private User.Role role;
     private User.Status status;
 }
 

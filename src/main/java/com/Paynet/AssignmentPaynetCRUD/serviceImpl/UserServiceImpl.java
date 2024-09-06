@@ -3,7 +3,10 @@ package com.Paynet.AssignmentPaynetCRUD.serviceImpl;
 
 import java.util.List;
 
+import com.Paynet.AssignmentPaynetCRUD.config.SecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.Paynet.AssignmentPaynetCRUD.dao.UserDAO;
@@ -17,6 +20,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDAO userDAO;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     @Override
     public User addUser(UserDTO userDTO) {
         User user = new User();
@@ -26,6 +32,10 @@ public class UserServiceImpl implements UserService {
         user.setAddress(userDTO.getAddress());
         user.setEmailAddress(userDTO.getEmailAddress());
         user.setStatus(userDTO.getStatus());
+
+        user.setUsername(userDTO.getUsername());
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        user.setRole(userDTO.getRole());
         return userDAO.saveUser(user);
     }
 
@@ -52,6 +62,9 @@ public class UserServiceImpl implements UserService {
         user.setAge(userDTO.getAge());
         user.setAddress(userDTO.getAddress());
         user.setEmailAddress(userDTO.getEmailAddress());
+        user.setUsername(userDTO.getUsername());
+        user.setPassword(userDTO.getPassword());
+        user.setRole(userDTO.getRole());
         user.setStatus(userDTO.getStatus());
         return userDAO.saveUser(user);
     }
