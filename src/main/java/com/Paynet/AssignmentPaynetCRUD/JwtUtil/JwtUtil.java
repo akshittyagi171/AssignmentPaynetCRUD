@@ -15,7 +15,7 @@ import java.util.function.Function;
 @Component
 public class JwtUtil {
 
-    private final String SECRET_KEY = "my_secret_key";
+    private final Key SECRET_KEY  = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -31,10 +31,9 @@ public class JwtUtil {
     }
 
     private Claims extractAllClaims(String token) {
-        Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
 
         return Jwts.parserBuilder()
-                .setSigningKey(key)
+                .setSigningKey(SECRET_KEY)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
@@ -55,7 +54,7 @@ public class JwtUtil {
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 hours
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .signWith(SECRET_KEY)
                 .compact();
     }
 
