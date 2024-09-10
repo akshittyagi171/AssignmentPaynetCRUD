@@ -3,9 +3,8 @@ package com.Paynet.AssignmentPaynetCRUD.serviceImpl;
 
 import java.util.List;
 
-import com.Paynet.AssignmentPaynetCRUD.config.SecurityConfig;
+import com.Paynet.AssignmentPaynetCRUD.service.PasswordEncoderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Import;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +20,7 @@ public class UserServiceImpl implements UserService {
     private UserDAO userDAO;
 
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    private PasswordEncoderService passwordEncoderService;
 
     @Override
     public User addUser(UserDTO userDTO) {
@@ -34,7 +33,7 @@ public class UserServiceImpl implements UserService {
         user.setStatus(userDTO.getStatus());
 
         user.setUsername(userDTO.getUsername());
-        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        user.setPassword(passwordEncoderService.encode(userDTO.getPassword()));
         user.setRole(userDTO.getRole());
         return userDAO.saveUser(user);
     }
